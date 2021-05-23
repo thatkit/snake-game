@@ -90,10 +90,12 @@ class snakeTail extends snakeUnit {
 // Snake Tail Instances
 
 const tail1 = new snakeTail(snakeHead.x, snakeHead.y);
+const tail2 =  new snakeTail(snakeHead.x, snakeHead.y);
 
 const snakeArr = [];
 snakeArr.push(snakeHead);
 snakeArr.push(tail1);
+snakeArr.push(tail2);
 
 const setDirection = arr => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -103,8 +105,9 @@ const setDirection = arr => {
 
 let timeoutID;
 const runMakeStep = () => {
-    snakeHead.makeStep();
-    tail1.makeStep();
+    //snakeHead.makeStep();
+    //tail1.makeStep();
+    snakeArr.forEach(el => el.makeStep());
     setDirection(snakeArr);
     timeoutID = setTimeout(runMakeStep, timing);
 }
@@ -121,6 +124,9 @@ const draw = () => {
 
     ctx.fillStyle = tailColor;
     ctx.fillRect(tail1.x, tail1.y, tail1.width, tail1.height);
+
+    ctx.fillStyle = tailColor;
+    ctx.fillRect(tail2.x, tail2.y, tail2.width, tail2.height);
 
     window.requestAnimationFrame(draw);
 }
