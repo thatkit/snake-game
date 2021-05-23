@@ -11,3 +11,16 @@ body {
 canvas {
     background-color: #42577254;
 }
+
+/* the below is for test */
+#box {
+    background-color: black;
+    z-index: 1;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    width: 100px;
+    height: 100px;
+    display: none;
+}
+/* end of the test thingy */

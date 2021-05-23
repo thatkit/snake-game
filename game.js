@@ -1,6 +1,8 @@
 const init = () => window.requestAnimationFrame(draw);
 
 const stepSize = 50;
+let timing = 500;
+
 
 class snakeUnit {
     constructor(x, y) {
@@ -8,6 +10,7 @@ class snakeUnit {
         this._y = y;
         this._width = stepSize;
         this._height = stepSize;
+        this._direction = undefined;
     }
 
     get x() {
@@ -26,13 +29,34 @@ class snakeUnit {
         return this._height;
     }
 
-    stepX(val) {
-        this._x += val;
+    setDirection(direction) {
+        this._direction = direction;
     }
 
-    stepY(val) {
-        this._y += val;
+    makeStep() {
+        switch(this._direction) {
+            case undefined:
+                break;
+            case 'left':
+                this._x -= stepSize;
+                break;
+            case 'right':
+                this._x += stepSize;
+                break;
+            case 'top':
+                this._y -= stepSize;
+                break;
+            case 'bot':
+                this._y += stepSize;
+                break;
+        }
     }
+}
+
+let ID;
+const runMakeStep = () => {
+    snakeHead.makeStep();
+    ID = setTimeout(runMakeStep, timing);
 }
 
 const snakeHead = new snakeUnit(stepSize, stepSize);
@@ -46,7 +70,6 @@ const draw = () => {
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
 
-    ctx.restore();
     window.requestAnimationFrame(draw);
 }
 
@@ -57,16 +80,18 @@ init();
 window.addEventListener('keydown', function (event) {
     switch (event.key) {
         case "ArrowLeft":
-            snakeHead.stepX(-stepSize);
+            snakeHead.setDirection('left');
             break;
         case "ArrowRight":
-            snakeHead.stepX(stepSize);
+            snakeHead.setDirection('right');
             break;
         case "ArrowUp":
-            snakeHead.stepY(-stepSize);
+            snakeHead.setDirection('top');
             break;
         case "ArrowDown":
-            snakeHead.stepY(stepSize);
+            snakeHead.setDirection('bot');
             break;
     }
+    clearTimeout(ID);
+    runMakeStep();
 });
