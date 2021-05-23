@@ -1,9 +1,10 @@
 const init = () => window.requestAnimationFrame(draw);
 
-/* Gloval Variables */
+/* Global Variables */
 
 const stepSize = 50; // the size of the snake units as well as the size of snake's steps 
 let timing = 500; // the speed of the snake
+const tailColor = 'rgba(255, 210, 0, 1)';
 
 /* Snake Body */
 
@@ -34,6 +35,14 @@ class snakeUnit {
         return this._height;
     }
 
+    set x(val) {
+        this._x += val;
+    }
+
+    set y(val) {
+        this._y += val;
+    }
+
     setDirection(direction) {
         this._direction = direction;
     }
@@ -61,25 +70,44 @@ class snakeUnit {
 // Snake Head Instance
 
 const snakeHead = new snakeUnit(stepSize, stepSize);
-snakeHead.fillColor = 'red';
+snakeHead.fillColor = 'rgba(255, 0, 0, 1)';
 
 // Snake Tail Subclass
 
 class snakeTail extends snakeUnit {
     constructor(x, y) {
-        super(x);
-        super(y);
+        super(x, y);
         this._width = stepSize;
         this._height = stepSize;
         this._direction = undefined;
     }
 }
 
+// Snake Tail Instances
+////test
+const tail1 = new snakeTail(snakeHead.x, snakeHead.y);
+const moveTail = prevUnitDirection => {
+    switch(prevUnitDirection) {
+        case undefined:
+            break;
+        case 'right':
+            tail1.setDirection('right');
+            this.makeStep();
+            break;
+    }
+}
+////endoftest
+
+
+
+
 let timeoutID;
 const runMakeStep = () => {
     snakeHead.makeStep();
     timeoutID = setTimeout(runMakeStep, timing);
 }
+
+/* Frame Drawing */
 
 const draw = () => {
     const ctx = document.getElementById('canvas').getContext('2d');
@@ -88,6 +116,9 @@ const draw = () => {
 
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
+
+    ctx.fillStyle = tailColor;
+    ctx.fillRect(tail1.x, tail1.y, tail1.width, tail1.height);
 
     window.requestAnimationFrame(draw);
 }
