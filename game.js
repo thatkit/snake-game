@@ -104,6 +104,7 @@ const moveTail = prevUnitDirection => {
 let timeoutID;
 const runMakeStep = () => {
     snakeHead.makeStep();
+    tail1.makeStep();
     timeoutID = setTimeout(runMakeStep, timing);
 }
 
@@ -131,15 +132,19 @@ window.addEventListener('keydown', function (event) {
     switch (event.key) {
         case "ArrowLeft":
             snakeHead.setDirection('left');
+            tail1.setDirection('left');
             break;
         case "ArrowRight":
             snakeHead.setDirection('right');
+            tail1.setDirection('right');
             break;
         case "ArrowUp":
             snakeHead.setDirection('top');
+            tail1.setDirection('top');
             break;
         case "ArrowDown":
             snakeHead.setDirection('bot');
+            tail1.setDirection('bot');
             break;
     }
 
