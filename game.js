@@ -5,6 +5,10 @@ const init = () => window.requestAnimationFrame(draw);
 const stepSize = 50; // the size of the snake units as well as the size of snake's steps 
 let timing = 500; // the speed of the snake
 
+/* Snake Body */
+
+// Snake Square Units Class
+
 class snakeUnit {
     constructor(x, y) {
         this._x = x;
@@ -54,14 +58,28 @@ class snakeUnit {
     }
 }
 
+// Snake Head Instance
+
+const snakeHead = new snakeUnit(stepSize, stepSize);
+snakeHead.fillColor = 'red';
+
+// Snake Tail Subclass
+
+class snakeTail extends snakeUnit {
+    constructor(x, y) {
+        super(x);
+        super(y);
+        this._width = stepSize;
+        this._height = stepSize;
+        this._direction = undefined;
+    }
+}
+
 let timeoutID;
 const runMakeStep = () => {
     snakeHead.makeStep();
     timeoutID = setTimeout(runMakeStep, timing);
 }
-
-const snakeHead = new snakeUnit(stepSize, stepSize);
-snakeHead.fillColor = 'red';
 
 const draw = () => {
     const ctx = document.getElementById('canvas').getContext('2d');
