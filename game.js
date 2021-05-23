@@ -1,8 +1,9 @@
 const init = () => window.requestAnimationFrame(draw);
 
-const stepSize = 50;
-let timing = 500;
+/* Gloval Variables */
 
+const stepSize = 50; // the size of the snake units as well as the size of snake's steps 
+let timing = 500; // the speed of the snake
 
 class snakeUnit {
     constructor(x, y) {
@@ -53,10 +54,10 @@ class snakeUnit {
     }
 }
 
-let ID;
+let timeoutID;
 const runMakeStep = () => {
     snakeHead.makeStep();
-    ID = setTimeout(runMakeStep, timing);
+    timeoutID = setTimeout(runMakeStep, timing);
 }
 
 const snakeHead = new snakeUnit(stepSize, stepSize);
@@ -75,7 +76,7 @@ const draw = () => {
 
 init();
 
-/* Controls */
+/* Keyboard Controls */
 
 window.addEventListener('keydown', function (event) {
     switch (event.key) {
@@ -92,6 +93,7 @@ window.addEventListener('keydown', function (event) {
             snakeHead.setDirection('bot');
             break;
     }
-    clearTimeout(ID);
+
+    clearTimeout(timeoutID);
     runMakeStep();
 });
