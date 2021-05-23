@@ -1,0 +1,13 @@
+body {
+    width: 100vh;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    background-color: #42577254;
+}
