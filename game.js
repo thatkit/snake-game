@@ -82,7 +82,8 @@ class SnakeHead extends SnakeUnit {
     }
 
     eatAndGrow() {
-        console.log(this._x);
+        console.log(`Look! This head method is working! Check ${this._x} and ${this._y}.`); // just checking if everything works at all
+
     }
 }
 
@@ -104,8 +105,13 @@ class SnakeTail extends SnakeUnit {
 
 // Snake Tail Instances
 
+//////test
 const tail1 = new SnakeTail(snakeHead.x, snakeHead.y);
 const tail2 =  new SnakeTail(snakeHead.x, snakeHead.y);
+
+const counter = 3;
+window['tail' + counter] =  new SnakeTail(snakeHead.x, snakeHead.y);
+//////test end
 
 const snakeArr = [];
 snakeArr.push(snakeHead);
