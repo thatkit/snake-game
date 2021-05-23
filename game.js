@@ -35,6 +35,10 @@ class snakeUnit {
         return this._height;
     }
 
+    get direction() {
+        return this._direction;
+    }
+
     set x(val) {
         this._x += val;
     }
@@ -43,8 +47,8 @@ class snakeUnit {
         this._y += val;
     }
 
-    setDirection(direction) {
-        this._direction = direction;
+    set direction(val) {
+        this._direction = val;
     }
 
     makeStep() {
@@ -84,31 +88,28 @@ class snakeTail extends snakeUnit {
 }
 
 // Snake Tail Instances
-////test
+
 const tail1 = new snakeTail(snakeHead.x, snakeHead.y);
-const moveTail = prevUnitDirection => {
-    switch(prevUnitDirection) {
-        case undefined:
-            break;
-        case 'right':
-            tail1.setDirection('right');
-            this.makeStep();
-            break;
+
+const snakeArr = [];
+snakeArr.push(snakeHead);
+snakeArr.push(tail1);
+
+const setDirection = arr => {
+    for (let i = arr.length - 1; i > 0; i--) {
+        arr[i].direction = arr[i - 1].direction;
     }
 }
-////endoftest
-
-
-
 
 let timeoutID;
 const runMakeStep = () => {
     snakeHead.makeStep();
     tail1.makeStep();
+    setDirection(snakeArr);
     timeoutID = setTimeout(runMakeStep, timing);
 }
 
-/* Frame Drawing */
+/* Canvas Frame Drawing */
 
 const draw = () => {
     const ctx = document.getElementById('canvas').getContext('2d');
@@ -131,20 +132,16 @@ init();
 window.addEventListener('keydown', function (event) {
     switch (event.key) {
         case "ArrowLeft":
-            snakeHead.setDirection('left');
-            tail1.setDirection('left');
+            snakeHead.direction = 'left';
             break;
         case "ArrowRight":
-            snakeHead.setDirection('right');
-            tail1.setDirection('right');
+            snakeHead.direction = 'right';
             break;
         case "ArrowUp":
-            snakeHead.setDirection('top');
-            tail1.setDirection('top');
+            snakeHead.direction = 'top';
             break;
         case "ArrowDown":
-            snakeHead.setDirection('bot');
-            tail1.setDirection('bot');
+            snakeHead.direction = 'bot';
             break;
     }
 
