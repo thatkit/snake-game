@@ -4,13 +4,12 @@ const init = () => window.requestAnimationFrame(draw);
 
 const stepSize = 50; // the size of the snake units as well as the size of snake's steps 
 let timing = 500; // the speed of the snake
-const tailColor = 'rgba(255, 210, 0, 1)';
 
 /* Snake Body */
 
 // Snake Square Units Class
 
-class snakeUnit {
+class SnakeUnit {
     constructor(x, y) {
         this._x = x;
         this._y = y;
@@ -73,24 +72,40 @@ class snakeUnit {
 
 // Snake Head Instance
 
-const snakeHead = new snakeUnit(stepSize, stepSize);
-snakeHead.fillColor = 'rgba(255, 0, 0, 1)';
-
-// Snake Tail Subclass
-
-class snakeTail extends snakeUnit {
+class SnakeHead extends SnakeUnit {
     constructor(x, y) {
         super(x, y);
         this._width = stepSize;
         this._height = stepSize;
         this._direction = undefined;
+        this.fillColor = 'rgba(255, 0, 0, 1)';
+    }
+
+    eatAndGrow() {
+        console.log(this._x);
+    }
+}
+
+// Snake Head the Only Instance
+
+const snakeHead = new SnakeHead(stepSize, stepSize);
+
+// Snake Tail Subclass
+
+class SnakeTail extends SnakeUnit {
+    constructor(x, y) {
+        super(x, y);
+        this._width = stepSize;
+        this._height = stepSize;
+        this._direction = undefined;
+        this.fillColor = 'rgba(255, 210, 0, 1)';
     }
 }
 
 // Snake Tail Instances
 
-const tail1 = new snakeTail(snakeHead.x, snakeHead.y);
-const tail2 =  new snakeTail(snakeHead.x, snakeHead.y);
+const tail1 = new SnakeTail(snakeHead.x, snakeHead.y);
+const tail2 =  new SnakeTail(snakeHead.x, snakeHead.y);
 
 const snakeArr = [];
 snakeArr.push(snakeHead);
@@ -122,10 +137,10 @@ const draw = () => {
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
 
-    ctx.fillStyle = tailColor;
+    ctx.fillStyle = tail1.fillColor;
     ctx.fillRect(tail1.x, tail1.y, tail1.width, tail1.height);
 
-    ctx.fillStyle = tailColor;
+    ctx.fillStyle = tail2.fillColor;
     ctx.fillRect(tail2.x, tail2.y, tail2.width, tail2.height);
 
     window.requestAnimationFrame(draw);
