@@ -82,10 +82,12 @@ class SnakeHead extends SnakeUnit {
         this.fillColor = 'rgba(255, 0, 0, 1)';
     }
 
+    // "Eat" and grow a new tail
     eatAndGrow() {
         console.log(`Look! This head method is working! Check ${this._x} and ${this._y}.`); // just checking if everything works at all
         counter++;
-        window['tail' + counter] =  new SnakeTail(snakeHead.x, snakeHead.y);
+        let newTailXY = getNewTailXY(snakeArr[snakeArr.length - 1].x, snakeArr[snakeArr.length - 1].y, snakeArr[snakeArr.length - 1].direction);
+        window['tail' + counter] =  new SnakeTail(newTailXY[0], newTailXY[1]);
         snakeArr.push(window['tail' + counter]);
     }
     
@@ -107,15 +109,6 @@ class SnakeTail extends SnakeUnit {
     }
 }
 
-// Snake Tail Instances
-
-//////test
-/*
-const tail1 = new SnakeTail(snakeHead.x, snakeHead.y);
-const tail2 =  new SnakeTail(snakeHead.x, snakeHead.y);
-*/
-//////test end
-
 const snakeArr = [];
 snakeArr.push(snakeHead);
 
@@ -123,6 +116,35 @@ const setDirection = arr => {
     for (let i = arr.length - 1; i > 0; i--) {
         arr[i].direction = arr[i - 1].direction;
     }
+}
+
+// Magic function that makes sure new tails are spawned at the correct place
+
+const getNewTailXY = (prevX, prevY, prevDirection) => {
+    let newX;
+    let newY;
+    let newXY = [];
+
+    if (prevDirection === 'left') {
+        newX = prevX ;
+        newY = prevY;
+    } else if (prevDirection === 'right') {
+        newX = prevX;
+        newY = prevY;
+    } else if (prevDirection === 'top') {
+        newX = prevX;
+        newY = prevY;
+    } else if (prevDirection === 'bot') {
+        newX = prevX;
+        newY = prevY;
+    } else {
+        console.log('I don\'t work');
+    }
+
+    newXY.push(newX);
+    newXY.push(newY);
+
+    return newXY;
 }
 
 let timeoutID;
@@ -146,14 +168,6 @@ const draw = () => {
         ctx.fillStyle = snakeArr[i].fillColor;
         ctx.fillRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
     }
-
-
-
-    //ctx.fillStyle = tail1.fillColor;
-    //ctx.fillRect(tail1.x, tail1.y, tail1.width, tail1.height);
-
-    //ctx.fillStyle = tail2.fillColor;
-    //ctx.fillRect(tail2.x, tail2.y, tail2.width, tail2.height);
 
     window.requestAnimationFrame(draw);
 }
