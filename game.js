@@ -4,6 +4,8 @@ const init = () => window.requestAnimationFrame(draw);
 
 const stepSize = 50; // the size of the snake units as well as the size of snake's steps 
 let timing = 500; // the speed of the snake
+let counter = 0; // counter of snake tails (0 is the head)
+let tailColor = 'rgba(255, 210, 0, 1)';
 
 /* Snake Body */
 
@@ -83,7 +85,9 @@ class SnakeHead extends SnakeUnit {
 
     eatAndGrow() {
         console.log(`Look! This head method is working! Check ${this._x} and ${this._y}.`); // just checking if everything works at all
-
+        counter++;
+        window['tail' + counter] =  new SnakeTail(snakeHead.x, snakeHead.y);
+        snakeArr.push(window['tail' + counter]);
     }
 }
 
@@ -99,24 +103,20 @@ class SnakeTail extends SnakeUnit {
         this._width = stepSize;
         this._height = stepSize;
         this._direction = undefined;
-        this.fillColor = 'rgba(255, 210, 0, 1)';
+        this.fillColor = tailColor;
     }
 }
 
 // Snake Tail Instances
 
 //////test
+/*
 const tail1 = new SnakeTail(snakeHead.x, snakeHead.y);
 const tail2 =  new SnakeTail(snakeHead.x, snakeHead.y);
-
-const counter = 3;
-window['tail' + counter] =  new SnakeTail(snakeHead.x, snakeHead.y);
-//////test end
+*/
 
 const snakeArr = [];
 snakeArr.push(snakeHead);
-snakeArr.push(tail1);
-snakeArr.push(tail2);
 
 const setDirection = arr => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -126,8 +126,6 @@ const setDirection = arr => {
 
 let timeoutID;
 const runMakeStep = () => {
-    //snakeHead.makeStep();
-    //tail1.makeStep();
     snakeArr.forEach(el => el.makeStep());
     setDirection(snakeArr);
     timeoutID = setTimeout(runMakeStep, timing);
@@ -143,11 +141,23 @@ const draw = () => {
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
 
-    ctx.fillStyle = tail1.fillColor;
-    ctx.fillRect(tail1.x, tail1.y, tail1.width, tail1.height);
+    if (snakeArr.length > 1) {
+        ctx.fillStyle = tailColor;
+    }
 
-    ctx.fillStyle = tail2.fillColor;
-    ctx.fillRect(tail2.x, tail2.y, tail2.width, tail2.height);
+    if (1 < snakeArr.length) {
+        for (let i = 0; i < snakeArr.length; i++) {
+            ctx.fillRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
+        }
+    }
+
+
+
+    //ctx.fillStyle = tail1.fillColor;
+    //ctx.fillRect(tail1.x, tail1.y, tail1.width, tail1.height);
+
+    //ctx.fillStyle = tail2.fillColor;
+    //ctx.fillRect(tail2.x, tail2.y, tail2.width, tail2.height);
 
     window.requestAnimationFrame(draw);
 }
