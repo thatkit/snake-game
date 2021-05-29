@@ -100,6 +100,13 @@ class SnakeHead extends SnakeUnit {
         window['tail' + counter] =  new SnakeTail(newTailXY[0], newTailXY[1]);
         snakeArr.push(window['tail' + counter]);
     }
+
+    hasDied() {
+        if (!this.isInBox()) {
+            console.log('Snake is DEAD');
+            return true;
+        }
+    }
     
 }
 
@@ -162,7 +169,9 @@ let timeoutID;
 const runMakeStep = () => {
     snakeArr.forEach(el => el.makeStep());
     setDirection(snakeArr);
-    timeoutID = setTimeout(runMakeStep, timing);
+    snakeHead.hasDied(); // checking if dead
+
+    timeoutID = setTimeout(runMakeStep, timing); // loop
 }
 
 /* (4) Canvas Frame Drawing */
