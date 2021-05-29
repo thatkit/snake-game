@@ -1,12 +1,11 @@
-const init = () => window.requestAnimationFrame(draw);
-
-/* Global Variables */
+/* (1) Global Variables */
 
 const stepSize = 50; // the size of the snake units as well as the size of snake's steps 
 let timing = 500; // the speed of the snake
 let counter = 0; // counter of snake tails (0 is the head)
+const snakeArr = [];
 
-/* Snake Body */
+/* (2) Snake Classes */
 
 // Snake Square Units Class
 
@@ -82,7 +81,6 @@ class SnakeHead extends SnakeUnit {
         this.fillColor = 'rgba(255, 0, 0, 1)';
     }
 
-    // "Eat" and grow a new tail
     eatAndGrow() {
         console.log(`Look! This head method is working! Check ${this._x} and ${this._y}.`); // just checking if everything works at all
         counter++;
@@ -109,7 +107,8 @@ class SnakeTail extends SnakeUnit {
     }
 }
 
-const snakeArr = [];
+/* (3) Unsorted Functions*/
+
 snakeArr.push(snakeHead);
 
 const setDirection = arr => {
@@ -154,7 +153,9 @@ const runMakeStep = () => {
     timeoutID = setTimeout(runMakeStep, timing);
 }
 
-/* Canvas Frame Drawing */
+/* (4) Canvas Frame Drawing */
+
+const init = () => window.requestAnimationFrame(draw);
 
 const draw = () => {
     const ctx = document.getElementById('canvas').getContext('2d');
@@ -174,7 +175,7 @@ const draw = () => {
 
 init();
 
-/* Keyboard Controls */
+/* (5) Keyboard Controls */
 
 window.addEventListener('keydown', function (event) {
     switch (event.key) {
