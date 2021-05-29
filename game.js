@@ -82,7 +82,6 @@ class SnakeHead extends SnakeUnit {
     }
 
     eatAndGrow() {
-        console.log(`Look! This head method is working! Check ${this._x} and ${this._y}.`); // just checking if everything works at all
         counter++;
         let newTailXY = getNewTailXY(snakeArr[snakeArr.length - 1].x, snakeArr[snakeArr.length - 1].y, snakeArr[snakeArr.length - 1].direction);
         window['tail' + counter] =  new SnakeTail(newTailXY[0], newTailXY[1]);
@@ -137,7 +136,7 @@ const getNewTailXY = (prevX, prevY, prevDirection) => {
         newX = prevX;
         newY = prevY;
     } else {
-        console.log('I don\'t work');
+        console.log('I can\'t get previous XY and direction');
     }
 
     newXY.push(newX);
