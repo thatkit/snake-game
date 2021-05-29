@@ -5,6 +5,9 @@ let timing = 500; // the speed of the snake
 let counter = 0; // counter of snake tails (0 is the head)
 const snakeArr = [];
 
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
 /* (2) Snake Classes */
 
 // Snake Square Units Class
@@ -79,6 +82,16 @@ class SnakeHead extends SnakeUnit {
         this._height = stepSize;
         this._direction = undefined;
         this.fillColor = 'rgba(255, 0, 0, 1)';
+    }
+
+    isInBox() {
+        if (this._x >= 0 && this._x <= canvas.width - stepSize && this._y >= 0 && this._y <= canvas.height - stepSize) {
+            console.log('Head is in the box');
+            return true;
+        } else {
+            console.log('Head is NOT in the box');
+            return false;
+        }
     }
 
     eatAndGrow() {
@@ -157,7 +170,6 @@ const runMakeStep = () => {
 const init = () => window.requestAnimationFrame(draw);
 
 const draw = () => {
-    const ctx = document.getElementById('canvas').getContext('2d');
     ctx.globalCompositeOperation = 'destination-over';
     ctx.clearRect(0, 0, 800, 800);
 
@@ -190,8 +202,9 @@ window.addEventListener('keydown', function (event) {
         case "ArrowDown":
             snakeHead.direction = 'bot';
             break;
-        case " ":
-            snakeHead.eatAndGrow(); // only for test
+        case " ": // only for test
+            snakeHead.eatAndGrow();
+            snakeHead.isInBox();
             break;
     }
 
