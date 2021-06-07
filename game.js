@@ -190,11 +190,27 @@ const runMakeStep = () => {
     timeoutID = setTimeout(runMakeStep, timing); // loop
 }
 
+// Pick random number within a range
+
+const getRandomNum = range => Math.floor(Math.random() * (range + 1));
+
+// Make a number be devisible by stepSize
+
+const getDivisibleNum = num => num - (num % stepSize);
+
 // Pick random x and y
 
 const getRandomXY = () => {
     const width = canvas.width;
     const height = canvas.height;
+
+    let forX = getRandomNum(width);
+    let forY = getRandomNum(height);
+
+    forX = getDivisibleNum(forX);
+    forY = getDivisibleNum(forY);
+    
+    return [forX, forY];
 }
 
 // Check whether x and y not overlap X and Y
