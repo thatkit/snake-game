@@ -126,7 +126,23 @@ class SnakeTail extends SnakeUnit {
     }
 }
 
-/* (3) Unsorted Functions*/
+/* (3) Food Class */
+
+class Food {
+    constructor(x, y) {
+        this._x = x;
+        this._y = y;
+        this._width = stepSize;
+        this._height = stepSize;
+        this.fillColor = 'rgba(100, 0, 255, 1)';
+    }
+
+    getEaten() {
+        
+    }
+}
+
+/* (4) Unsorted Functions*/
 
 snakeArr.push(snakeHead);
 
@@ -174,7 +190,26 @@ const runMakeStep = () => {
     timeoutID = setTimeout(runMakeStep, timing); // loop
 }
 
-/* (4) Canvas Frame Drawing */
+// Pick random x and y
+
+const getRandomXY = () => {
+    const width = canvas.width;
+    const height = canvas.height;
+}
+
+// Check whether x and y not overlap X and Y
+
+const isOverlappingXY = (X, Y, x, y) => {
+    if (X === x || Y === y) {
+        return true;
+    } else if (X !== x && Y !== y) {
+        return false;
+    } else {
+        console.log('check the funtion, cause it ain\'t working');
+    }
+}
+
+/* (5) Canvas Frame Drawing */
 
 const init = () => window.requestAnimationFrame(draw);
 
@@ -195,7 +230,7 @@ const draw = () => {
 
 init();
 
-/* (5) Keyboard Controls */
+/* (6) Keyboard Controls */
 
 window.addEventListener('keydown', function (event) {
     switch (event.key) {
