@@ -209,19 +209,47 @@ const getRandomXY = () => {
 
     forX = getDivisibleNum(forX);
     forY = getDivisibleNum(forY);
+
+    const newRandomXY = [forX, forY];
     
-    return [forX, forY];
+    return newRandomXY;
 }
 
-// Check whether x and y not overlap X and Y
+// Create an array of x and y
 
-const isOverlappingXY = (X, Y, x, y) => {
-    if (X === x || Y === y) {
+const oldXYArr = [];
+
+const getOldXYArr = () => snakeArr.forEach(el => oldXYArr.push([el.x, el.y]));
+
+// Check whether x and y = X and Y
+
+const isxyEqualXY = (oldXY, newXY) => {
+    if (oldXY[0] === newXY[0] || oldXY[1] === newXY[1]) {
         return true;
-    } else if (X !== x && Y !== y) {
+    } else if (oldXY[0] !== newXY[0] && oldXY[1] !== newXY[1]) {
         return false;
     } else {
-        console.log('check the funtion, cause it ain\'t working');
+        console.log('the fun() needs to be checked');
+    }
+}
+
+// Check whether x and y not overlap X and Y (comparing arrays)
+
+const isOverlappingXY = newXYArr => {
+    const trueOrFalseArr = [];
+
+    getOldXYArr();
+    oldXYArr.forEach(el => {
+        const tOrf = isxyEqualXY(el, newXYArr);
+        trueOrFalseArr.push(tOrf);
+    });
+
+    if (trueOrFalseArr.some(el => el === true)) {
+        return true;
+    } else if (!trueOrFalseArr.some(el => el === true)) {
+        return false;
+    } else {
+        console.log('the fun() is badly broken!');
     }
 }
 
