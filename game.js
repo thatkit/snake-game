@@ -200,16 +200,24 @@ init();
 window.addEventListener('keydown', function (event) {
     switch (event.key) {
         case "ArrowLeft":
-            snakeHead.direction = 'left';
+            if (snakeHead.direction !== 'right') {
+                snakeHead.direction = 'left';
+            }            
             break;
         case "ArrowRight":
-            snakeHead.direction = 'right';
+            if (snakeHead.direction !== 'left') {
+                snakeHead.direction = 'right';
+            }
             break;
         case "ArrowUp":
-            snakeHead.direction = 'top';
+            if (snakeHead.direction !== 'bot') {
+                snakeHead.direction = 'top';
+            }
             break;
         case "ArrowDown":
-            snakeHead.direction = 'bot';
+            if (snakeHead.direction !== 'top') {
+                snakeHead.direction = 'bot';
+            }
             break;
         case " ": // only for test
             snakeHead.eatAndGrow();
