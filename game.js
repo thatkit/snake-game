@@ -86,10 +86,16 @@ class SnakeHead extends SnakeUnit {
 
     isInBox() {
         if (this._x >= 0 && this._x <= canvas.width - stepSize && this._y >= 0 && this._y <= canvas.height - stepSize) {
-            console.log('Head is in the box');
             return true;
         } else {
-            console.log('Head is NOT in the box');
+            return false;
+        }
+    }
+
+    hasEatenItself() {
+        if (isOverlappingXY([this.x, this.y])) {
+            return true;
+        } else {
             return false;
         }
     }
@@ -102,7 +108,7 @@ class SnakeHead extends SnakeUnit {
     }
 
     hasDied() {
-        if (!this.isInBox()) {
+        if (!this.isInBox() || this.hasEatenItself()) {
             console.log('Snake is DEAD');
             return true;
         }
@@ -140,6 +146,10 @@ class Food {
     getEaten() {
         
     }
+}
+
+const spawnFood = () => {
+
 }
 
 /* (4) Unsorted Functions*/
@@ -183,11 +193,13 @@ const getNewTailXY = (prevX, prevY, prevDirection) => {
 
 let timeoutID;
 const runMakeStep = () => {
-    snakeArr.forEach(el => el.makeStep());
-    setDirection(snakeArr);
-    snakeHead.hasDied(); // checking if dead
-
-    timeoutID = setTimeout(runMakeStep, timing); // loop
+    console.log(snakeHead.hasEatenItself());
+    if (!snakeHead.hasDied()) {
+        snakeArr.forEach(el => el.makeStep());
+        setDirection(snakeArr);
+    
+        timeoutID = setTimeout(runMakeStep, timing); // loop
+    }
 }
 
 // Pick random number within a range
@@ -198,7 +210,7 @@ const getRandomNum = range => Math.floor(Math.random() * (range + 1));
 
 const getDivisibleNum = num => num - (num % stepSize);
 
-// Pick random x and y
+// Pick random x and y (for food to spawn)
 
 const getRandomXY = () => {
     const width = canvas.width;
@@ -215,11 +227,13 @@ const getRandomXY = () => {
     return newRandomXY;
 }
 
-// Create an array of x and y
+// Create an array of x and y (snake head and tails)
 
-const oldXYArr = [];
-
-const getOldXYArr = () => snakeArr.forEach(el => oldXYArr.push([el.x, el.y]));
+const getOldXYArr = () => {
+    const oldXYArr = [];
+    snakeArr.forEach(el => oldXYArr.push([el.x, el.y]));
+    return oldXYArr;
+}
 
 // Check whether x and y = X and Y
 
@@ -238,8 +252,7 @@ const isxyEqualXY = (oldXY, newXY) => {
 const isOverlappingXY = newXYArr => {
     const trueOrFalseArr = [];
 
-    getOldXYArr();
-    oldXYArr.forEach(el => {
+    getOldXYArr().forEach(el => {
         const tOrf = isxyEqualXY(el, newXYArr);
         trueOrFalseArr.push(tOrf);
     });
@@ -300,7 +313,6 @@ window.addEventListener('keydown', function (event) {
             break;
         case " ": // only for test
             snakeHead.eatAndGrow();
-            snakeHead.isInBox();
             break;
     }
 
