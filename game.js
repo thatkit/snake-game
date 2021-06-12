@@ -92,13 +92,13 @@ class SnakeHead extends SnakeUnit {
         }
     }
 
-    /*hasEatenItself() {
-        if (isOverlappingXY([this.x, this.y])) {
+    hasEatenItself() {
+        if (isEatingItself(this.x, this.y)) {
             return true;
         } else {
             return false;
         }
-    }*/
+    }
 
     eatAndGrow() {
         counter++;
@@ -108,7 +108,7 @@ class SnakeHead extends SnakeUnit {
     }
 
     hasDied() {
-        if (!this.isInBox()/* || this.hasEatenItself()*/) {
+        if (!this.isInBox() || this.hasEatenItself()) {
             console.log('Snake is DEAD');
             return true;
         }
@@ -158,7 +158,7 @@ snakeArr.push(snakeHead);
 
 const setDirection = arr => {
     for (let i = arr.length - 1; i > 0; i--) {
-        arr[i].direction = arr[i - 1].direction;
+        arr[i].direction = arr[i -1].direction;
     }
 }
 
@@ -193,7 +193,7 @@ const getNewTailXY = (prevX, prevY, prevDirection) => {
 
 let timeoutID;
 const runMakeStep = () => {
-    //console.log(snakeHead.hasEatenItself());
+    console.log(snakeHead.hasEatenItself());
     if (!snakeHead.hasDied()) {
         snakeArr.forEach(el => el.makeStep());
         setDirection(snakeArr);
@@ -236,42 +236,11 @@ const getTailArr = () => {
     }
 }
 
-// Create an array of x and y (snake head and tails)
-
-const getOldXYArr = () => {
-    const oldXYArr = [];
-    snakeArr.forEach(el => oldXYArr.push([el.x, el.y]));
-    return oldXYArr;
-}
-
-// Check whether x and y = X and Y
-
-const isxyEqualXY = (oldXY, newXY) => {
-    if (oldXY[0] === newXY[0] || oldXY[1] === newXY[1]) {
-        return true;
-    } else if (oldXY[0] !== newXY[0] && oldXY[1] !== newXY[1]) {
-        return false;
-    } else {
-        console.log('the fun() needs to be checked');
-    }
-}
-
-// Check whether x and y not overlap X and Y (comparing arrays)
-
-const isOverlappingXY = newXYArr => {
-    const trueOrFalseArr = [];
-
-    getOldXYArr().forEach(el => {
-        const tOrf = isxyEqualXY(el, newXYArr);
-        trueOrFalseArr.push(tOrf);
-    });
-
-    if (trueOrFalseArr.some(el => el === true)) {
-        return true;
-    } else if (!trueOrFalseArr.some(el => el === true)) {
-        return false;
-    } else {
-        console.log('the fun() is badly broken!');
+const isEatingItself = (x, y) => {
+    if (snakeArr.length > 3) {
+        if (getTailArr().some(el => x === el.x && y === el.y)) {
+            return true;
+        }
     }
 }
 
