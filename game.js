@@ -92,13 +92,13 @@ class SnakeHead extends SnakeUnit {
         }
     }
 
-    hasEatenItself() {
+    /*hasEatenItself() {
         if (isOverlappingXY([this.x, this.y])) {
             return true;
         } else {
             return false;
         }
-    }
+    }*/
 
     eatAndGrow() {
         counter++;
@@ -108,7 +108,7 @@ class SnakeHead extends SnakeUnit {
     }
 
     hasDied() {
-        if (!this.isInBox() || this.hasEatenItself()) {
+        if (!this.isInBox()/* || this.hasEatenItself()*/) {
             console.log('Snake is DEAD');
             return true;
         }
@@ -193,7 +193,7 @@ const getNewTailXY = (prevX, prevY, prevDirection) => {
 
 let timeoutID;
 const runMakeStep = () => {
-    console.log(snakeHead.hasEatenItself());
+    //console.log(snakeHead.hasEatenItself());
     if (!snakeHead.hasDied()) {
         snakeArr.forEach(el => el.makeStep());
         setDirection(snakeArr);
@@ -225,6 +225,15 @@ const getRandomXY = () => {
     const newRandomXY = [forX, forY];
     
     return newRandomXY;
+}
+
+// Create a tail array without the head (from snakeArr)
+
+const getTailArr = () => {
+    if (snakeArr[0] === snakeHead) {
+        const tailArr = snakeArr.slice(1);
+        return tailArr;
+    }
 }
 
 // Create an array of x and y (snake head and tails)
