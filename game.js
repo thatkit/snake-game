@@ -221,10 +221,8 @@ const getRandomXY = () => {
 
     forX = getDivisibleNum(forX);
     forY = getDivisibleNum(forY);
-
-    const newRandomXY = [forX, forY];
-    
-    return newRandomXY;
+  
+    return [forX, forY];
 }
 
 // Create a tail array without the head (from snakeArr)
