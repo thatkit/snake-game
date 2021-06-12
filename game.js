@@ -124,10 +124,15 @@ class SnakeHead extends SnakeUnit {
     }
 
     eatAndGrow() {
-        counter++;
-        let newTailXY = getNewTailXY(snakeArr[snakeArr.length - 1].x, snakeArr[snakeArr.length - 1].y, snakeArr[snakeArr.length - 1].direction);
-        window['tail' + counter] = new SnakeTail(newTailXY[0], newTailXY[1]);
-        snakeArr.push(window['tail' + counter]);
+        if (this.x === food.x && this.y === food.y) {
+            counter++;
+            let newTailXY = getNewTailXY(snakeArr[snakeArr.length - 1].x, snakeArr[snakeArr.length - 1].y, snakeArr[snakeArr.length - 1].direction);
+            window['tail' + counter] = new SnakeTail(newTailXY[0], newTailXY[1]);
+            snakeArr.push(window['tail' + counter]);
+
+            //get the food eaten through Food method
+            food.getEaten();
+        }
     }
 
     hasDied() {
@@ -166,16 +171,27 @@ class Food {
         this.fillColor = 'rgba(100, 0, 255, 1)';
     }
 
-    //static spawn() {
-    //    let food = new Food(getRandomXY[0], getRandomXY[1]);
-    //}
+    get x() {
+        return this._x;
+    }
+    
+    get y() {
+        return this._y;
+    }
+
+    get width() {
+        return this._width;
+    }
+
+    get height() {
+        return this._height;
+    }
 
     getEaten() {
-        
+        spawn();
     }
 }
 
-const spawn = () => new Food(getRandomXY()[0], getRandomXY()[1]);
 
 /* (4) Unsorted Functions*/
 
@@ -222,6 +238,7 @@ const runMakeStep = () => {
     if (!snakeHead.hasDied()) {
         snakeArr.forEach(el => el.makeStep());
         setDirection(snakeArr);
+        snakeHead.eatAndGrow();
         
         timeoutID = setTimeout(runMakeStep, timing); // loop
     }
@@ -265,7 +282,7 @@ const draw = () => {
     }
 
     ctx.fillStyle = food.fillColor;
-    ctx.fillRect(food._x, food._y, food._width, food._height);
+    ctx.fillRect(food.x, food.y, food.width, food.height);
 
     window.requestAnimationFrame(draw);
 }
