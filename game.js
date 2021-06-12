@@ -145,7 +145,7 @@ class SnakeHead extends SnakeUnit {
 
 // Snake Head the Only Instance
 
-const snakeHead = new SnakeHead(stepSize, stepSize);
+const snakeHead = new SnakeHead(getRandomXY()[0], getRandomXY()[1]);
 
 // Snake Tail Subclass
 
