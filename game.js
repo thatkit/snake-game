@@ -130,8 +130,7 @@ class SnakeHead extends SnakeUnit {
             window['tail' + counter] = new SnakeTail(newTailXY[0], newTailXY[1]);
             snakeArr.push(window['tail' + counter]);
 
-            //get the food eaten through Food method
-            food.getEaten();
+            Food.spawn(); // Everytime a food is 'eaten' it spawns at a different place
         }
     }
 
@@ -171,6 +170,11 @@ class Food {
         this.fillColor = 'rgba(100, 0, 255, 1)';
     }
 
+    static spawn() {
+        food = new Food(getRandomXY()[0], getRandomXY()[1]);
+        return food;
+    }
+
     get x() {
         return this._x;
     }
@@ -186,12 +190,9 @@ class Food {
     get height() {
         return this._height;
     }
-
-    getEaten() {
-        spawn();
-    }
 }
 
+let food = new Food(getRandomXY()[0], getRandomXY()[1]);
 
 /* (4) Unsorted Functions*/
 
@@ -234,7 +235,6 @@ const getNewTailXY = (prevX, prevY, prevDirection) => {
 
 let timeoutID;
 const runMakeStep = () => {
-    console.log(snakeHead.hasEatenItself());
     if (!snakeHead.hasDied()) {
         snakeArr.forEach(el => el.makeStep());
         setDirection(snakeArr);
@@ -243,8 +243,6 @@ const runMakeStep = () => {
         timeoutID = setTimeout(runMakeStep, timing); // loop
     }
 }
-
-const food = spawn();
 
 // Create a tail array without the head (from snakeArr)
 
