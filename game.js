@@ -8,6 +8,29 @@ const snakeArr = [];
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+// Pick random number within a range
+
+const getRandomNum = range => Math.floor(Math.random() * (range + 1));
+
+// Make a number be devisible by stepSize
+
+const getDivisibleNum = num => num - (num % stepSize);
+
+// Pick random x and y (for food to spawn)
+
+const getRandomXY = () => {
+    const width = canvas.width;
+    const height = canvas.height;
+
+    let forX = getRandomNum(width);
+    let forY = getRandomNum(height);
+
+    forX = getDivisibleNum(forX);
+    forY = getDivisibleNum(forY);
+  
+    return [forX, forY];
+}
+
 /* (2) Snake Classes */
 
 // Snake Square Units Class
@@ -103,7 +126,7 @@ class SnakeHead extends SnakeUnit {
     eatAndGrow() {
         counter++;
         let newTailXY = getNewTailXY(snakeArr[snakeArr.length - 1].x, snakeArr[snakeArr.length - 1].y, snakeArr[snakeArr.length - 1].direction);
-        window['tail' + counter] =  new SnakeTail(newTailXY[0], newTailXY[1]);
+        window['tail' + counter] = new SnakeTail(newTailXY[0], newTailXY[1]);
         snakeArr.push(window['tail' + counter]);
     }
 
@@ -143,14 +166,16 @@ class Food {
         this.fillColor = 'rgba(100, 0, 255, 1)';
     }
 
+    //static spawn() {
+    //    let food = new Food(getRandomXY[0], getRandomXY[1]);
+    //}
+
     getEaten() {
         
     }
 }
 
-const spawnFood = () => {
-
-}
+const spawn = () => new Food(getRandomXY()[0], getRandomXY()[1]);
 
 /* (4) Unsorted Functions*/
 
@@ -197,33 +222,12 @@ const runMakeStep = () => {
     if (!snakeHead.hasDied()) {
         snakeArr.forEach(el => el.makeStep());
         setDirection(snakeArr);
-    
+        
         timeoutID = setTimeout(runMakeStep, timing); // loop
     }
 }
 
-// Pick random number within a range
-
-const getRandomNum = range => Math.floor(Math.random() * (range + 1));
-
-// Make a number be devisible by stepSize
-
-const getDivisibleNum = num => num - (num % stepSize);
-
-// Pick random x and y (for food to spawn)
-
-const getRandomXY = () => {
-    const width = canvas.width;
-    const height = canvas.height;
-
-    let forX = getRandomNum(width);
-    let forY = getRandomNum(height);
-
-    forX = getDivisibleNum(forX);
-    forY = getDivisibleNum(forY);
-  
-    return [forX, forY];
-}
+const food = spawn();
 
 // Create a tail array without the head (from snakeArr)
 
@@ -233,6 +237,8 @@ const getTailArr = () => {
         return tailArr;
     }
 }
+
+// Is about to eat itself?
 
 const isEatingItself = (x, y) => {
     if (snakeArr.length > 3) {
@@ -257,6 +263,9 @@ const draw = () => {
         ctx.fillStyle = snakeArr[i].fillColor;
         ctx.fillRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
     }
+
+    ctx.fillStyle = food.fillColor;
+    ctx.fillRect(food._x, food._y, food._width, food._height);
 
     window.requestAnimationFrame(draw);
 }
