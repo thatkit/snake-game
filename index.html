@@ -13,7 +13,26 @@
     </head>
 
     <body>
-        <canvas id="canvas" width="800px" height="800px"></canvas>
+        <div id="screen-field">
+            <div id="canvas-cnt">
+                <canvas id="canvas" width="800px" height="800px"></canvas>
+            </div>
+            <div id="dashboard-cnt">
+                <header></header>
+                <main>
+                    <div class="game before-start">
+                        <p>Press <em>&larr;</em> <em>&uarr;</em> <em>&rarr;</em> <em>&darr;</em> to move the snake!</p>
+                    </div>
+                    <div class="game after-start">
+                        <p>Eat and Grow!</p>
+                        <p>Make sure you don't cross the border or eat yourself!</p>
+                    </div>
+                </main>
+                <footer>
+                    <p>Created by Nikita Viatkin &copy; </p>
+                </footer>
+            </div>
+        </div>
     </body>
 
 </html>
