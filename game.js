@@ -6,6 +6,8 @@ let counter = 0; // counter of snake tails (0 is the head)
 const snakeArr = [];
 
 const canvas = document.getElementById('canvas');
+const width = canvas.width;
+const height = canvas.height;
 const ctx = canvas.getContext('2d');
 
 // Pick random number within a range
@@ -16,18 +18,28 @@ const getRandomNum = range => Math.floor(Math.random() * (range + 1));
 
 const getDivisibleNum = num => num - (num % stepSize);
 
+// Validate x and y in order to prevent spawning 'under' the snake
+
+const isUnderSnake = (x, y) => {
+    if (snakeArr.some(el => el.x === x && el.y === y)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Pick random x and y (for food to spawn)
 
 const getRandomXY = () => {
-    const width = canvas.width;
-    const height = canvas.height;
+    let forX;
+    let forY;
+    do {
+        forX = getRandomNum(width);
+        forY = getRandomNum(height);
+        forX = getDivisibleNum(forX);
+        forY = getDivisibleNum(forY);
+    } while (isUnderSnake(forX, forY));
 
-    let forX = getRandomNum(width);
-    let forY = getRandomNum(height);
-
-    forX = getDivisibleNum(forX);
-    forY = getDivisibleNum(forY);
-  
     return [forX, forY];
 }
 
