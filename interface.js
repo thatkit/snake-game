@@ -1,6 +1,7 @@
 /* () Canvas size */
 
-
+//canvas.style.width = '600px';
+//canvas.style.height = '600px';
 
 /* () Keyboard Controls */
 

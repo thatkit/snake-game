@@ -1,13 +1,13 @@
 /* (1) Global Variables */
 
-const stepSize = 50; // the size of the snake units as well as the size of snake's steps 
+let stepSize = 50; // the size of the snake units as well as the size of snake's steps 
 let timing = 300; // the speed of the snake
 let counter = 0; // counter of snake tails (0 is the head)
 const snakeArr = [];
 
 const canvas = document.getElementById('canvas');
-const width = canvas.width;
-const height = canvas.height;
+let width = canvas.width;
+let height = canvas.height;
 const ctx = canvas.getContext('2d');
 
 // Pick random number within a range
@@ -298,3 +298,7 @@ const draw = () => {
 }
 
 init();
+
+let consoleMes = `isUnderSnake() doesn't always work`;
+let isUnderSnakeError = new Error(consoleMes);
+throw isUnderSnakeError;
