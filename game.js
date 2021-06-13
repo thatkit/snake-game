@@ -1,7 +1,7 @@
 /* (1) Global Variables */
 
 const stepSize = 50; // the size of the snake units as well as the size of snake's steps 
-let timing = 500; // the speed of the snake
+let timing = 300; // the speed of the snake
 let counter = 0; // counter of snake tails (0 is the head)
 const snakeArr = [];
 
@@ -286,36 +286,3 @@ const draw = () => {
 }
 
 init();
-
-/* (6) Keyboard Controls */
-
-window.addEventListener('keydown', function (event) {
-    switch (event.key) {
-        case "ArrowLeft":
-            if (snakeHead.direction !== 'right') {
-                snakeHead.direction = 'left';
-            }            
-            break;
-        case "ArrowRight":
-            if (snakeHead.direction !== 'left') {
-                snakeHead.direction = 'right';
-            }
-            break;
-        case "ArrowUp":
-            if (snakeHead.direction !== 'bot') {
-                snakeHead.direction = 'top';
-            }
-            break;
-        case "ArrowDown":
-            if (snakeHead.direction !== 'top') {
-                snakeHead.direction = 'bot';
-            }
-            break;
-        case " ": // only for test
-            snakeHead.eatAndGrow();
-            break;
-    }
-
-    clearTimeout(timeoutID);
-    runMakeStep();
-});
