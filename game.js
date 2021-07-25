@@ -8,18 +8,18 @@ const snakeArr = [];
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+// Make a number be devisible by stepSize
+
+const getDivisibleNum = num => num - (num % stepSize);
+
 // Canvas objects' sizing
 
-canvas.setAttribute('width', window.innerWidth);
-canvas.setAttribute('height', window.innerHeight);
+canvas.setAttribute('width', getDivisibleNum(window.innerWidth));
+canvas.setAttribute('height', getDivisibleNum(window.innerHeight));
 
 // Pick random number within a range
 
 const getRandomNum = range => Math.floor(Math.random() * (range + 1));
-
-// Make a number be devisible by stepSize
-
-const getDivisibleNum = num => num - (num % stepSize);
 
 // Validate x and y in order to prevent spawning 'under' the snake
 
