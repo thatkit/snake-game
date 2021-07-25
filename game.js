@@ -284,7 +284,7 @@ const init = () => window.requestAnimationFrame(draw);
 
 const draw = () => {
     ctx.globalCompositeOperation = 'destination-over';
-    ctx.clearRect(0, 0, 800, 800);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
