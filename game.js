@@ -3,12 +3,15 @@
 let stepSize = 50; // the size of the snake units as well as the size of snake's steps 
 let timing = 300; // the speed of the snake
 let counter = 0; // counter of snake tails (0 is the head)
-const snakeArr = [];
+const snakeArr = [];    
 
 const canvas = document.getElementById('canvas');
-let width = canvas.width;
-let height = canvas.height;
 const ctx = canvas.getContext('2d');
+
+// Canvas objects' sizing
+
+canvas.setAttribute('width', window.innerWidth);
+canvas.setAttribute('height', window.innerHeight);
 
 // Pick random number within a range
 
@@ -34,8 +37,8 @@ const getRandomXY = () => {
     let forX;
     let forY;
     do {
-        forX = getRandomNum(width);
-        forY = getRandomNum(height);
+        forX = getRandomNum(canvas.width);
+        forY = getRandomNum(canvas.height);
         forX = getDivisibleNum(forX);
         forY = getDivisibleNum(forY);
     } while (isUnderSnake(forX, forY));
@@ -298,7 +301,3 @@ const draw = () => {
 }
 
 init();
-
-let consoleMes = `isUnderSnake() doesn't always work`;
-let isUnderSnakeError = new Error(consoleMes);
-throw isUnderSnakeError;
