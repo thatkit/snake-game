@@ -301,16 +301,42 @@ const draw = () => {
 
     // snake tails
     for (let i = 1; i < snakeArr.length; i++) {
-
+        
+        // tails' fill
         ctx.fillStyle = snakeArr[i].fillColor;
         ctx.fillRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
         
-        ctx.beginPath();
-        ctx.moveTo(snakeArr[i].x, snakeArr[i].y);
-        ctx.lineTo(snakeArr[i].x, snakeArr[i].y + stepSize);
-        ctx.closePath();
-        ctx.stroke();
-
+        // tails' bordering
+        if (snakeArr[i - 1].direction === 'top' || snakeArr[i - 1].direction === 'bot') {
+            console.log(`moving ${snakeArr[i - 1].direction}`);
+            // left border
+            ctx.beginPath();
+            ctx.moveTo(snakeArr[i].x, snakeArr[i].y);
+            ctx.lineTo(snakeArr[i].x, snakeArr[i].y + snakeArr[i].height);
+            ctx.closePath();
+            ctx.stroke();
+            // right border
+            ctx.beginPath();
+            ctx.moveTo(snakeArr[i].x + snakeArr[i].width, snakeArr[i].y);
+            ctx.lineTo(snakeArr[i].x + snakeArr[i].width, snakeArr[i].y + snakeArr[i].height);
+            ctx.closePath();
+            ctx.stroke();
+        } else if (snakeArr[i - 1].direction === 'left' || snakeArr[i - 1].direction === 'right') {
+            // top border
+            ctx.beginPath();
+            ctx.moveTo(snakeArr[i].x, snakeArr[i].y);
+            ctx.lineTo(snakeArr[i].x + snakeArr[i].width, snakeArr[i].y);
+            ctx.closePath();
+            ctx.stroke();
+            // bot border
+            ctx.beginPath();
+            ctx.moveTo(snakeArr[i].x, snakeArr[i].y + snakeArr[i].height);
+            ctx.lineTo(snakeArr[i].x + snakeArr[i].width, snakeArr[i].y + snakeArr[i].height);
+            ctx.closePath();
+            ctx.stroke();
+        } else {
+            console.log('buggy bug else');
+        }
     }
 
     // food
