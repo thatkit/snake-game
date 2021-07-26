@@ -289,18 +289,27 @@ const draw = () => {
 
     // canvas border
     ctx.rect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 4;
     ctx.stroke();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = 'red';
 
     // snake head
+    ctx.lineWidth = 2;
+    ctx.strokeRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
 
     // snake tails
     for (let i = 1; i < snakeArr.length; i++) {
+
         ctx.fillStyle = snakeArr[i].fillColor;
         ctx.fillRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
+        ctx.beginPath();
+        ctx.moveTo(snakeArr[i].x, snakeArr[i].y);
+        ctx.lineTo(snakeArr[i].x, snakeArr[i].height);
+        ctx.closePath();
+        ctx.stroke();
+
     }
 
     // food
