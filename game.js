@@ -304,9 +304,10 @@ const draw = () => {
 
         ctx.fillStyle = snakeArr[i].fillColor;
         ctx.fillRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
+        
         ctx.beginPath();
         ctx.moveTo(snakeArr[i].x, snakeArr[i].y);
-        ctx.lineTo(snakeArr[i].x, snakeArr[i].height);
+        ctx.lineTo(snakeArr[i].x, snakeArr[i].y + stepSize);
         ctx.closePath();
         ctx.stroke();
 
