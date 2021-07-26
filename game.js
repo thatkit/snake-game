@@ -283,20 +283,31 @@ const isEatingItself = (x, y) => {
 const init = () => window.requestAnimationFrame(draw);
 
 const draw = () => {
+    // clearing canvas
     ctx.globalCompositeOperation = 'destination-over';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // canvas border
+    ctx.rect(0, 0, canvas.width, canvas.height);
+    ctx.stroke();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'red';
+
+    // snake head
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
 
+    // snake tails
     for (let i = 1; i < snakeArr.length; i++) {
         ctx.fillStyle = snakeArr[i].fillColor;
         ctx.fillRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
     }
 
+    // food
     ctx.fillStyle = food.fillColor;
     ctx.fillRect(food.x, food.y, food.width, food.height);
 
+    // loop
     window.requestAnimationFrame(draw);
 }
 
