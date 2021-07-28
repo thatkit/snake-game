@@ -250,16 +250,14 @@ const getNewTailXY = (prevX, prevY, prevDirection) => {
     return newXY;
 }
 
-let timeoutID;
 const runMakeStep = () => {
     if (!snakeHead.hasDied()) {
         snakeArr.forEach(el => el.makeStep());
         setDirection(snakeArr);
         snakeHead.eatAndGrow();
-        
-        timeoutID = setTimeout(runMakeStep, timing); // loop
     }
 }
+setInterval(runMakeStep, timing);
 
 // Create a tail array without the head (from snakeArr)
 
@@ -281,34 +279,27 @@ const isEatingItself = (x, y) => {
 }
 
 /* (5) Canvas Frame Drawing */
-console.log(performance.now()); // performance
-
-const init = () => window.requestAnimationFrame(draw);
 
 const draw = () => {
     // clearing canvas
     ctx.globalCompositeOperation = 'destination-over';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    console.log(`Performance after clearing canvas ${performance.now()}`); // performance
     // canvas border
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 4;
     ctx.stroke();
-    console.log(`Performance after canvas border ${performance.now()}`); // performance
     // snake head
     ctx.lineWidth = 2;
     ctx.strokeRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
-    console.log(`Performance after snake head ${performance.now()}`); // performance
     // snake tails
     for (let i = 1; i < snakeArr.length; i++) {
         ctx.strokeRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
         ctx.fillStyle = snakeArr[i].fillColor;
         ctx.fillRect(snakeArr[i].x, snakeArr[i].y, snakeArr[i].width, snakeArr[i].height);
     }
-    console.log(`Performance after snake tails ${performance.now()}`); // performance
     // food
     ctx.fillStyle = food.fillColor;
     ctx.fillRect(food.x, food.y, food.width, food.height);
@@ -317,5 +308,4 @@ const draw = () => {
     window.requestAnimationFrame(draw);
 }
 
-init();
-console.log(performance.now()); // performance
+draw();

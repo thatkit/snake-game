@@ -27,6 +27,5 @@ window.addEventListener('keydown', function (event) {
             break;
     }
 
-    clearTimeout(timeoutID);
     runMakeStep();
 });
