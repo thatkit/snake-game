@@ -27,5 +27,9 @@ window.addEventListener('keydown', function (event) {
             break;
     }
 
-    runMakeStep();
+    if (!snakeHead.hasDied()) {
+        snakeArr.forEach(el => el.makeStep());
+        setDirection(snakeArr);
+        snakeHead.eatAndGrow();
+    }
 });

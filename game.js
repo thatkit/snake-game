@@ -1,9 +1,7 @@
-console.log(performance.now()); // performance
-
 /* (1) Global Variables */
 
 let stepSize = 50; // the size of the snake units as well as the size of snake's steps 
-let timing = 300; // the speed of the snake
+let timing = 500; // the speed of the snake
 let counter = 0; // counter of snake tails (0 is the head)
 const snakeArr = [];    
 
@@ -255,7 +253,7 @@ const runMakeStep = () => {
         snakeArr.forEach(el => el.makeStep());
         setDirection(snakeArr);
         snakeHead.eatAndGrow();
-    }
+    }  
 }
 setInterval(runMakeStep, timing);
 
