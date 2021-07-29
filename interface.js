@@ -1,6 +1,12 @@
 /* () Keyboard Controls */
 
+let intervalID;
+const intervalLoop = () => {
+    intervalID = setInterval(runMakeStep, config.timing);
+}
+
 window.addEventListener('keydown', function (event) {
+    clearInterval(intervalID);
     switch (event.key) {
         case "ArrowLeft":
             if (snakeHead.direction !== 'right') {
@@ -28,8 +34,9 @@ window.addEventListener('keydown', function (event) {
     }
 
     if (!snakeHead.hasDied()) {
-        snakeArr.forEach(el => el.makeStep());
-        setDirection(snakeArr);
+        config.snakeArr.forEach(el => el.makeStep());
+        setDirection(config.snakeArr);
         snakeHead.eatAndGrow();
+        intervalLoop();
     }
 });
