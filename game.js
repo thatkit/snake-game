@@ -1,7 +1,7 @@
 /* (1) Global Variables */
 
 let stepSize = 50; // the size of the snake units as well as the size of snake's steps 
-let timing = 500; // the speed of the snake
+let timing = 400; // the speed of the snake
 let counter = 0; // counter of snake tails (0 is the head)
 const snakeArr = [];    
 
@@ -33,16 +33,30 @@ const isUnderSnake = (x, y) => {
 
 // Pick random x and y (for food to spawn)
 
-const getRandomXY = () => {
-    let forX;
-    let forY;
-    do {
-        forX = getRandomNum(canvas.width);
-        forY = getRandomNum(canvas.height);
-        forX = getDivisibleNum(forX);
-        forY = getDivisibleNum(forY);
-    } while (isUnderSnake(forX, forY));
+const getRandomXYFood = () => {
+    let forX = getDivisibleNum(getRandomNum(canvas.width));
+    let forY = getDivisibleNum(getRandomNum(canvas.height));
+    
+    const validate = () => {
+        if (isUnderSnake(forX, forY)) {
+            console.log(`Is under snake? ${isUnderSnake(forX, forY)}`);
+            forX = getDivisibleNum(getRandomNum(canvas.width));
+            forY = getDivisibleNum(getRandomNum(canvas.height));
+            console.log('validate() is called');
+            validate();
+        }
+    }
+    validate();
 
+    console.log(isUnderSnake(forX, forY));
+    return [forX, forY];
+}
+
+// Pick random x and y (for snake head to spawn)
+
+const getRandomXYSnakeHead = () => {
+    let forX = getDivisibleNum(getRandomNum(canvas.width));
+    let forY = getDivisibleNum(getRandomNum(canvas.height));
     return [forX, forY];
 }
 
@@ -59,37 +73,18 @@ class SnakeUnit {
         this._direction = undefined;
     }
 
-    get x() {
-        return this._x;
-    }
-    
-    get y() {
-        return this._y;
-    }
+    get x() {return this._x}
+    get y() {return this._y}
 
-    get width() {
-        return this._width;
-    }
+    get width() {return this._width}
+    get height() {return this._height}
 
-    get height() {
-        return this._height;
-    }
+    get direction() {return this._direction}
 
-    get direction() {
-        return this._direction;
-    }
+    set x(val) {this._x += val}
+    set y(val) {this._y += val}
 
-    set x(val) {
-        this._x += val;
-    }
-
-    set y(val) {
-        this._y += val;
-    }
-
-    set direction(val) {
-        this._direction = val;
-    }
+    set direction(val) {this._direction = val}
 
     makeStep() {
         switch(this._direction) {
@@ -160,7 +155,7 @@ class SnakeHead extends SnakeUnit {
 
 // Snake Head the Only Instance
 
-const snakeHead = new SnakeHead(getRandomXY()[0], getRandomXY()[1]);
+const snakeHead = new SnakeHead(getRandomXYSnakeHead()[0], getRandomXYSnakeHead()[1]);
 
 // Snake Tail Subclass
 
@@ -186,28 +181,24 @@ class Food {
     }
 
     static spawn() {
-        food = new Food(getRandomXY()[0], getRandomXY()[1]);
+        const foodXYArr = getRandomXYFood();
+        food = new Food(foodXYArr[0], foodXYArr[1]);
         return food;
     }
 
-    get x() {
-        return this._x;
-    }
-    
-    get y() {
-        return this._y;
-    }
+    get x() {return this._x}
+    get y() {return this._y}
 
-    get width() {
-        return this._width;
-    }
-
-    get height() {
-        return this._height;
-    }
+    get width() {return this._width}
+    get height() {return this._height}
 }
 
-let food = new Food(getRandomXY()[0], getRandomXY()[1]);
+let food;
+const invokeFood = () => {
+    const foodXYArr = getRandomXYFood();
+    food = new Food(foodXYArr[0], foodXYArr[1]);
+}
+invokeFood();
 
 /* (4) Unsorted Functions*/
 
@@ -255,7 +246,11 @@ const runMakeStep = () => {
         snakeHead.eatAndGrow();
     }  
 }
-setInterval(runMakeStep, timing);
+
+let intervalID;
+const intervalLoop = () => {
+    intervalID = setInterval(runMakeStep, timing);
+}
 
 // Create a tail array without the head (from snakeArr)
 
@@ -301,9 +296,10 @@ const draw = () => {
     // food
     ctx.fillStyle = food.fillColor;
     ctx.fillRect(food.x, food.y, food.width, food.height);
-    console.log(`Performance after food ${performance.now()}`); // performance
+    //console.log(`Performance after food ${performance.now()}`); // performance
     // loop
     window.requestAnimationFrame(draw);
 }
 
+intervalLoop();
 draw();

@@ -23,7 +23,7 @@ window.addEventListener('keydown', function (event) {
             }
             break;
         case " ": // only for test
-            snakeHead.eatAndGrow();
+            intervalID ? clearInterval(intervalID) : intervalLoop();
             break;
     }
 
