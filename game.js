@@ -48,7 +48,6 @@ const getRandomXYFood = () => {
     }
     validate();
 
-    console.log(isUnderSnake(forX, forY));
     return [forX, forY];
 }
 
