@@ -19,7 +19,7 @@ canvas.setAttribute('height', getDivisibleNum(window.innerHeight));
 
 // Pick random number within a range
 
-const getRandomNum = range => Math.floor(Math.random() * (range + 1));
+const getRandomNum = range => Math.floor(Math.random() * range);
 
 // Validate x and y in order to prevent spawning 'under' the snake
 
@@ -150,7 +150,6 @@ class SnakeHead extends SnakeUnit {
             return true;
         }
     }
-    
 }
 
 // Snake Head the Only Instance
