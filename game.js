@@ -289,7 +289,6 @@ const draw = () => {
     // food
     ctx.fillStyle = food.fillColor;
     ctx.fillRect(food.x, food.y, food.width, food.height);
-    //console.log(`Performance after food ${performance.now()}`); // performance
     // loop
     window.requestAnimationFrame(draw);
 }
