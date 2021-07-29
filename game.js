@@ -39,10 +39,8 @@ const getRandomXYFood = () => {
     
     const validate = () => {
         if (isUnderSnake(forX, forY)) {
-            console.log(`Is under snake? ${isUnderSnake(forX, forY)}`);
             forX = getDivisibleNum(getRandomNum(canvas.width));
             forY = getDivisibleNum(getRandomNum(canvas.height));
-            console.log('validate() is called');
             validate();
         }
     }
