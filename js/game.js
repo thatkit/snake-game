@@ -31,7 +31,11 @@ class SnakeUnit {
     set x(val) {this._x += val}
     set y(val) {this._y += val}
 
-    set direction(val) {this._direction = val}
+    set direction(val) {
+        if (fun.config.drawingOn === true) {
+            this._direction = val;
+        }
+    }
 
     makeStep() {
         switch(this._direction) {
@@ -93,6 +97,7 @@ class SnakeHead extends SnakeUnit {
 
     hasDied() {
         if (!this.isInBox() || this.hasEatenItself()) {
+            fun.config.drawingOn = false;
             fun.showText(fun.diedText);
             return true;
         }
@@ -233,10 +238,10 @@ const draw = () => {
     ctx.fillStyle = food.fillColor;
     ctx.fillRect(food.x, food.y, food.width, food.height);
     // loop
-    window.requestAnimationFrame(draw);
+    if (fun.config.drawingOn === true) {
+        window.requestAnimationFrame(draw);
+    }
 }
-
-
 
 /*
 * (2) Keyboard Controls
