@@ -1,0 +1,36 @@
+@import 'variables', 'placeholders';
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+html {
+    overflow: hidden;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-color: $background-color;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#screen-field {
+    width: 100%;
+    height: 100%;
+    @extend %flex-center;
+}
+
+#canvas-cnt {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    @extend %flex-center;
+}
+
+#text-cnt {
+    z-index: 1;
+}
+
+canvas {
+    background-color: $background-color;
+}

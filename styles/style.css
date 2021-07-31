@@ -1,34 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+#screen-field, #canvas-cnt {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 html {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
-    padding: 0;
-    margin: 0;
-    background-color: #42577254;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-color: #E0DFD5;
+  font-family: 'Press Start 2P', cursive;
 }
 
 #screen-field {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 #canvas-cnt {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+#text-cnt {
+  z-index: 1;
 }
 
 canvas {
-    background-color: #42577254;
+  background-color: #E0DFD5;
 }
+/*# sourceMappingURL=style.css.map */
