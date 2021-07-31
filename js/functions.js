@@ -51,12 +51,11 @@ const getRandomXYSnakeHead = () => {
 const startText = document.getElementById('start-text');
 const instructionsText = document.getElementById('instructions-text');
 const backwardsText = document.getElementById('backwards-text');
-const eatenItselfText = document.getElementById('eaten-itself-text');
-const crossedBorderText = document.getElementById('crossed-border-text');
+const diedText = document.getElementById('died-text');
 const victoryText = document.getElementById('victory-text');
 
 const showText = textEl => {
-    let textArr = [startText, instructionsText, backwardsText, eatenItselfText, crossedBorderText, victoryText];
+    let textArr = [startText, instructionsText, backwardsText, diedText, victoryText];
     textArr.forEach(el => el.classList.toggle('show', false));
     textEl.classList.add('show');
 }
@@ -66,4 +65,4 @@ const showAndHideText = textEl => {
     setTimeout(() => textEl.classList.remove('show'), 2000);
 }
 
-export { config, getDivisibleNum, getRandomXYFood, getRandomXYSnakeHead, startText, instructionsText, backwardsText, eatenItselfText, crossedBorderText, victoryText, showAndHideText };
+export { config, getDivisibleNum, getRandomXYFood, getRandomXYSnakeHead, startText, instructionsText, backwardsText, diedText, victoryText, showText, showAndHideText };

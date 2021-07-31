@@ -93,7 +93,7 @@ class SnakeHead extends SnakeUnit {
 
     hasDied() {
         if (!this.isInBox() || this.hasEatenItself()) {
-            console.log('Snake is DEAD');
+            fun.showText(fun.diedText);
             return true;
         }
     }
