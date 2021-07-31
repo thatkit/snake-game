@@ -218,11 +218,6 @@ const draw = () => {
     // clearing canvas
     ctx.globalCompositeOperation = 'destination-over';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // canvas border
-    ctx.rect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 4;
-    ctx.stroke();
     // snake head
     ctx.lineWidth = 2;
     ctx.strokeRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
@@ -241,28 +236,12 @@ const draw = () => {
     window.requestAnimationFrame(draw);
 }
 
-draw();
 
-/* (1) Texts Toggling */
 
-const startText = document.getElementById('start-text');
-const backwardsText = document.getElementById('backwards-text');
-const eatenItselfText = document.getElementById('eaten-itself-text');
-const crossedBorderText = document.getElementById('crossed-border-text');
-const victoryText = document.getElementById('victory-text');
-
-const showText = textEl => {
-    let textArr = [startText, backwardsText, eatenItselfText, crossedBorderText, victoryText];
-    textArr.forEach(el => el.classList.toggle('show', false));
-    textEl.classList.add('show');
-}
-
-const showBackwardsText = () => {
-    showText(backwardsText);
-    setTimeout(() => backwardsText.classList.remove('show'), 1000);
-}
-
-/* (2) Keyboard Controls */
+/*
+* (2) Keyboard Controls
+*
+*/
 
 let intervalID;
 const intervalLoop = () => {
@@ -276,32 +255,36 @@ window.addEventListener('keydown', function (event) {
             if (snakeHead.direction !== 'right') {
                 snakeHead.direction = 'left';
             } else {
-                showBackwardsText();
+                fun.showAndHideText(fun.backwardsText);
             }
             break;
         case "ArrowRight":
             if (snakeHead.direction !== 'left') {
                 snakeHead.direction = 'right';
             } else {
-                showBackwardsText();
+                fun.showAndHideText(fun.backwardsText);
             }
             break;
         case "ArrowUp":
             if (snakeHead.direction !== 'bot') {
                 snakeHead.direction = 'top';
             } else {
-                showBackwardsText();
+                fun.showAndHideText(fun.backwardsText);
             }
             break;
         case "ArrowDown":
             if (snakeHead.direction !== 'top') {
                 snakeHead.direction = 'bot';
             } else {
-                showBackwardsText();
+                fun.showAndHideText(fun.backwardsText);
             }
             break;
         case " ": // only for test
-            intervalID ? clearInterval(intervalID) : intervalLoop();
+            if (fun.config.drawingOn === false) {
+                fun.config.drawingOn = true;
+                fun.showAndHideText(fun.instructionsText);
+                draw();
+            }
             break;
     }
 

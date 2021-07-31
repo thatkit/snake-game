@@ -10,7 +10,6 @@ html {
 
 body {
     @extend %full-wh;
-    @extend %zero-pm;
     background-color: $background-color;
     font-family: 'Press Start 2P', cursive;
 }
@@ -19,10 +18,10 @@ body {
 
 #canvas-cnt {
     @extend %full-wh;
-    position: absolute;
     @extend %flex-center;
 
     canvas {
+        @extend %border;
         background-color: $background-color;
     }
 }
@@ -31,14 +30,12 @@ body {
 
 #text-cnt {
     @extend %full-wh;
-    position: absolute;
-    z-index: 1;
     @extend %flex-center;
+    z-index: 1;
 
     div.text {
         width: 50%;
         height: 50%;
-        position: absolute;
         @extend %flex-center;
         visibility: hidden; // Game States' Texts
 

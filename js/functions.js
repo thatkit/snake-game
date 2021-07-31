@@ -3,6 +3,7 @@ const config = {
     stepSize: 50, // the size of the snake units as well as the size of snake's steps
     timing: 400, // the speed of the snake
     counter: 0, // counter of snake tails (0 is the head)
+    drawingOn: false,
     snakeArr: []
 }
 
@@ -45,4 +46,24 @@ const getRandomXYSnakeHead = () => {
     return [forX, forY];
 }
 
-export { config, getDivisibleNum, getRandomXYFood, getRandomXYSnakeHead };
+// Texts Toggling
+
+const startText = document.getElementById('start-text');
+const instructionsText = document.getElementById('instructions-text');
+const backwardsText = document.getElementById('backwards-text');
+const eatenItselfText = document.getElementById('eaten-itself-text');
+const crossedBorderText = document.getElementById('crossed-border-text');
+const victoryText = document.getElementById('victory-text');
+
+const showText = textEl => {
+    let textArr = [startText, instructionsText, backwardsText, eatenItselfText, crossedBorderText, victoryText];
+    textArr.forEach(el => el.classList.toggle('show', false));
+    textEl.classList.add('show');
+}
+
+const showAndHideText = textEl => {
+    showText(textEl);
+    setTimeout(() => textEl.classList.remove('show'), 2000);
+}
+
+export { config, getDivisibleNum, getRandomXYFood, getRandomXYSnakeHead, startText, instructionsText, backwardsText, eatenItselfText, crossedBorderText, victoryText, showAndHideText };
