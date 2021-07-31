@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
-#screen-field, #canvas-cnt {
+#canvas-cnt, #text-cnt {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14,35 +14,52 @@
           align-items: center;
 }
 
+body, #canvas-cnt, #text-cnt {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
 html {
+  font-size: 24px;
   overflow: hidden;
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
-  padding: 0;
-  margin: 0;
   background-color: #E0DFD5;
   font-family: 'Press Start 2P', cursive;
 }
 
-#screen-field {
-  width: 100%;
-  height: 100%;
+#canvas-cnt {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-#canvas-cnt {
-  width: 100%;
-  height: 100%;
-  position: absolute;
+#canvas-cnt canvas {
+  background-color: #E0DFD5;
 }
 
 #text-cnt {
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 1;
 }
 
-canvas {
-  background-color: #E0DFD5;
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+footer {
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */

@@ -13,21 +13,37 @@
     </head>
 
     <body>
-        <div id="screen-field">
-            <div id="canvas-cnt">
-                <canvas id="canvas"></canvas>
-            </div>
-            <div id="text-cnt">
-                <div class="game before-start">
-                    <p>Press <span>&larr;</span> <span>&uarr;</span> <span>&rarr;</span> <span>&darr;</span> to move the snake!</p>
-                </div>
-                <div class="game after-start">
-                    <p>Eat and Grow!</p>
-                    <p>Make sure you don't cross the border or eat yourself!</p>
-                </div>
-                <p>Created by Nikita Viatkin &copy; </p>
-            </div>
+        <div id="canvas-cnt">
+            <canvas id="canvas"></canvas>
         </div>
+        <div id="text-cnt">
+
+            <!-- Start Text -->
+            <div id="start-text" class="show">
+                <p>Press <span>&larr;</span> <span>&uarr;</span> <span>&rarr;</span> <span>&darr;</span> to move the snake!</p>
+            </div>
+
+            <!-- Eaten Itself Text -->
+            <div id="eaten-itself-text" class="hide">
+                <p>DEAD. Don't eat yourself!</p>
+                <button>Restart</button>
+            </div>
+
+            <!-- Crossing the Border Text -->
+            <div id="crossed-border-text" class="hide">
+                <p>DEAD. Don't cross the border!</p>
+                <button>Restart</button>
+            </div>
+
+            <!-- Victory Text -->
+            <div id="victory-text" class="hide">
+                <p>You won!</p>
+            </div>
+            
+        </div>
+        <footer>
+            <p>Created by Nikita Viatkin &copy; </p>
+        </footer>
     </body>
 
 </html>
