@@ -55,7 +55,27 @@ body {
 }
 
 #text-cnt div.text p.text-bit {
+  padding: 1rem 0.5rem;
+  background-color: black;
+  color: #E0DFD5;
+  line-height: 1.5rem;
   text-align: center;
+}
+
+#text-cnt div.text button {
+  width: 100%;
+  padding: 1rem 0.5rem;
+  border: 3px solid black;
+  background-color: #E0DFD5;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+#text-cnt div.text button:hover {
+  border: 3px solid black;
+  background-color: black;
+  color: #E0DFD5;
+  cursor: pointer;
 }
 
 #text-cnt div.hide {
@@ -64,6 +84,13 @@ body {
 
 #text-cnt div.show {
   visibility: visible;
+}
+
+#r-arr,
+#l-arr {
+  display: inline-block;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
 }
 
 footer {

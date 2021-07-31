@@ -42,9 +42,28 @@ body {
         @extend %flex-center;
 
         p.text-bit {
+            padding: 1rem 0.5rem;
+            background-color: black;
+            color: $background-color;
+            line-height: 1.5rem;
             text-align: center;
         }
-        
+
+        button {
+            width: 100%;
+            padding: 1rem 0.5rem;
+            border: 3px solid black;
+            background-color: $background-color;
+            font-size: 1rem;
+            font-family: inherit;
+            
+            &:hover {
+                border: 3px solid black;
+                background-color: black;
+                color: $background-color;
+                cursor: pointer;
+            }
+        }        
     }
 
     // Game States' Texts
@@ -56,7 +75,14 @@ body {
     div.show {
         visibility: visible;
     }
+}
 
+// Arrow Spans Turn
+
+#r-arr,
+#l-arr {
+    display: inline-block;
+    transform: rotate(90deg);
 }
 
 // temprorary

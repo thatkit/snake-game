@@ -20,29 +20,34 @@
 
             <!-- Start Text -->
             <div id="start-text" class="show text">
-                <p class="text-bit">Press <span>&larr;</span> <span>&uarr;</span> <span>&rarr;</span> <span>&darr;</span> to move the snake!</p>
+                <p class="text-bit">press 
+                    <span id="r-arr">&uarr;</span>
+                    <span>&uarr;</span>
+                    <span id="l-arr">&darr;</span>
+                    <span>&darr;</span>
+                    to move the snake!</p>
             </div>
 
             <!-- Backwards Movement Text -->
             <div id="back-move-text" class="hide text">
-                <p class="text-bit">Can't go backwards!</p>
+                <p class="text-bit">can't go backwards!</p>
             </div>
 
             <!-- Eaten Itself Text -->
             <div id="eaten-itself-text" class="hide text">
-                <p class="text-bit">DEAD. Don't eat yourself!</p>
+                <p class="text-bit">DEAD<br>don't eat yourself!</p>
                 <button>Restart</button>
             </div>
 
             <!-- Crossing the Border Text -->
             <div id="crossed-border-text" class="hide text">
-                <p class="text-bit">DEAD. Don't cross the border!</p>
+                <p class="text-bit">DEAD<br>don't cross the border!</p>
                 <button>Restart</button>
             </div>
 
             <!-- Victory Text -->
             <div id="victory-text" class="hide text">
-                <p class="text-bit">You won!</p>
+                <p class="text-bit">you won!</p>
             </div>
 
         </div>
