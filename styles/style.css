@@ -1,14 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
-#canvas-cnt, #text-cnt {
+#canvas-cnt, #text-cnt, #text-cnt div.text {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -36,8 +37,6 @@ body {
 
 #canvas-cnt {
   position: absolute;
-  top: 0;
-  left: 0;
 }
 
 #canvas-cnt canvas {
@@ -46,17 +45,26 @@ body {
 
 #text-cnt {
   position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
 }
 
-.hide {
-  display: none;
+#text-cnt div.text {
+  width: 50%;
+  height: 50%;
+  position: absolute;
 }
 
-.show {
-  display: block;
+#text-cnt div.text p.text-bit {
+  width: 100%;
+  text-align: center;
+}
+
+#text-cnt div.hide {
+  visibility: hidden;
+}
+
+#text-cnt div.show {
+  visibility: visible;
 }
 
 footer {

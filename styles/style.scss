@@ -20,8 +20,6 @@ body {
 #canvas-cnt {
     @extend %full-wh;
     position: absolute;
-    top: 0;
-    left: 0;
     @extend %flex-center;
 
     canvas {
@@ -34,21 +32,36 @@ body {
 #text-cnt {
     @extend %full-wh;
     position: absolute;
-    top: 0;
-    left: 0;
     z-index: 1;
     @extend %flex-center;
+
+    div.text {
+        width: 50%;
+        height: 50%;
+        position: absolute;
+        @extend %flex-center;
+
+        p.text-bit {
+            width: 100%;
+            text-align: center;
+        }
+        
+    }
+
+    // Game States' Texts
+
+    div.hide {
+        visibility: hidden;
+    }
+    
+    div.show {
+        visibility: visible;
+    }
+
 }
 
-// Game States' Texts
 
-.hide {
-    display: none;
-}
 
-.show {
-    display: block;
-}
 
 // temprorary
 
