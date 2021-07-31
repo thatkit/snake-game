@@ -113,7 +113,7 @@ class SnakeHead extends SnakeUnit {
         this._width = config.stepSize;
         this._height = config.stepSize;
         this._direction = undefined;
-        this.fillColor = 'rgba(255, 0, 0, 1)';
+        this.fillColor = '#E02716';
     }
 
     isInBox() {
@@ -163,7 +163,7 @@ class SnakeTail extends SnakeUnit {
         this._width = config.stepSize;
         this._height = config.stepSize;
         this._direction = undefined;
-        this.fillColor = 'rgba(255, 210, 0, 1)';
+        this.fillColor = '#E0C42D';
     }
 }
 
@@ -175,7 +175,7 @@ class Food {
         this._y = y;
         this._width = config.stepSize;
         this._height = config.stepSize;
-        this.fillColor = 'rgba(100, 0, 255, 1)';
+        this.fillColor = '#190BE0';
     }
 
     static spawn() {
