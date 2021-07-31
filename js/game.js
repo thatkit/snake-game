@@ -1,63 +1,11 @@
-/* (1) Global Variables */
+import * as fun from './functions.js';
 
-const config = {
-    stepSize: 50, // the size of the snake units as well as the size of snake's steps
-    timing: 400, // the speed of the snake
-    counter: 0, // counter of snake tails (0 is the head)
-    snakeArr: []
-}
-
+// Canvas Context & Sizing
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-// Make a number be devisible by config.stepSize
-
-const getDivisibleNum = num => num - (num % config.stepSize);
-
-// Canvas objects' sizing
-
-canvas.setAttribute('width', getDivisibleNum(window.innerWidth));
-canvas.setAttribute('height', getDivisibleNum(window.innerHeight));
-
-// Pick random number within a range
-
-const getRandomNum = range => Math.floor(Math.random() * range);
-
-// Validate x and y in order to prevent spawning 'under' the snake
-
-const isUnderSnake = (x, y) => {
-    if (config.snakeArr.some(el => el.x === x && el.y === y)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-// Pick random x and y (for food to spawn)
-
-const getRandomXYFood = () => {
-    let forX = getDivisibleNum(getRandomNum(canvas.width));
-    let forY = getDivisibleNum(getRandomNum(canvas.height));
-    
-    const validate = () => {
-        if (isUnderSnake(forX, forY)) {
-            forX = getDivisibleNum(getRandomNum(canvas.width));
-            forY = getDivisibleNum(getRandomNum(canvas.height));
-            validate();
-        }
-    }
-    validate();
-
-    return [forX, forY];
-}
-
-// Pick random x and y (for snake head to spawn)
-
-const getRandomXYSnakeHead = () => {
-    let forX = getDivisibleNum(getRandomNum(canvas.width));
-    let forY = getDivisibleNum(getRandomNum(canvas.height));
-    return [forX, forY];
-}
+canvas.setAttribute('width', fun.getDivisibleNum(window.innerWidth));
+canvas.setAttribute('height', fun.getDivisibleNum(window.innerHeight));
 
 /* (2) Snake Classes */
 
@@ -67,8 +15,8 @@ class SnakeUnit {
     constructor(x, y) {
         this._x = x;
         this._y = y;
-        this._width = config.stepSize;
-        this._height = config.stepSize;
+        this._width = fun.config.stepSize;
+        this._height = fun.config.stepSize;
         this._direction = undefined;
     }
 
@@ -90,16 +38,16 @@ class SnakeUnit {
             case undefined:
                 break;
             case 'left':
-                this._x -= config.stepSize;
+                this._x -= fun.config.stepSize;
                 break;
             case 'right':
-                this._x += config.stepSize;
+                this._x += fun.config.stepSize;
                 break;
             case 'top':
-                this._y -= config.stepSize;
+                this._y -= fun.config.stepSize;
                 break;
             case 'bot':
-                this._y += config.stepSize;
+                this._y += fun.config.stepSize;
                 break;
         }
     }
@@ -110,14 +58,14 @@ class SnakeUnit {
 class SnakeHead extends SnakeUnit {
     constructor(x, y) {
         super(x, y);
-        this._width = config.stepSize;
-        this._height = config.stepSize;
+        this._width = fun.config.stepSize;
+        this._height = fun.config.stepSize;
         this._direction = undefined;
         this.fillColor = '#E02716';
     }
 
     isInBox() {
-        if (this._x >= 0 && this._x <= canvas.width - config.stepSize && this._y >= 0 && this._y <= canvas.height - config.stepSize) {
+        if (this._x >= 0 && this._x <= canvas.width - fun.config.stepSize && this._y >= 0 && this._y <= canvas.height - fun.config.stepSize) {
             return true;
         } else {
             return false;
@@ -134,10 +82,10 @@ class SnakeHead extends SnakeUnit {
 
     eatAndGrow() {
         if (this.x === food.x && this.y === food.y) {
-            config.counter++;
-            let newTailXY = getNewTailXY(config.snakeArr[config.snakeArr.length - 1].x, config.snakeArr[config.snakeArr.length - 1].y, config.snakeArr[config.snakeArr.length - 1].direction);
-            window['tail' + config.counter] = new SnakeTail(newTailXY[0], newTailXY[1]);
-            config.snakeArr.push(window['tail' + config.counter]);
+            fun.config.counter++;
+            let newTailXY = getNewTailXY(fun.config.snakeArr[fun.config.snakeArr.length - 1].x, fun.config.snakeArr[fun.config.snakeArr.length - 1].y, fun.config.snakeArr[fun.config.snakeArr.length - 1].direction);
+            window['tail' + fun.config.counter] = new SnakeTail(newTailXY[0], newTailXY[1]);
+            fun.config.snakeArr.push(window['tail' + fun.config.counter]);
 
             Food.spawn(); // Everytime a food is 'eaten' it spawns at a different place
         }
@@ -153,15 +101,15 @@ class SnakeHead extends SnakeUnit {
 
 // Snake Head the Only Instance
 
-const snakeHead = new SnakeHead(getRandomXYSnakeHead()[0], getRandomXYSnakeHead()[1]);
+const snakeHead = new SnakeHead(fun.getRandomXYSnakeHead()[0], fun.getRandomXYSnakeHead()[1]);
 
 // Snake Tail Subclass
 
 class SnakeTail extends SnakeUnit {
     constructor(x, y) {
         super(x, y);
-        this._width = config.stepSize;
-        this._height = config.stepSize;
+        this._width = fun.config.stepSize;
+        this._height = fun.config.stepSize;
         this._direction = undefined;
         this.fillColor = '#E0C42D';
     }
@@ -173,13 +121,13 @@ class Food {
     constructor(x, y) {
         this._x = x;
         this._y = y;
-        this._width = config.stepSize;
-        this._height = config.stepSize;
+        this._width = fun.config.stepSize;
+        this._height = fun.config.stepSize;
         this.fillColor = '#190BE0';
     }
 
     static spawn() {
-        const foodXYArr = getRandomXYFood();
+        const foodXYArr = fun.getRandomXYFood();
         food = new Food(foodXYArr[0], foodXYArr[1]);
         return food;
     }
@@ -193,14 +141,14 @@ class Food {
 
 let food;
 const invokeFood = () => {
-    const foodXYArr = getRandomXYFood();
+    const foodXYArr = fun.getRandomXYFood();
     food = new Food(foodXYArr[0], foodXYArr[1]);
 }
 invokeFood();
 
 /* (4) Unsorted Functions*/
 
-config.snakeArr.push(snakeHead);
+fun.config.snakeArr.push(snakeHead);
 
 const setDirection = arr => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -239,8 +187,8 @@ const getNewTailXY = (prevX, prevY, prevDirection) => {
 
 const runMakeStep = () => {
     if (!snakeHead.hasDied()) {
-        config.snakeArr.forEach(el => el.makeStep());
-        setDirection(config.snakeArr);
+        fun.config.snakeArr.forEach(el => el.makeStep());
+        setDirection(fun.config.snakeArr);
         snakeHead.eatAndGrow();
     }  
 }
@@ -248,8 +196,8 @@ const runMakeStep = () => {
 // Create a tail array without the head (from config.snakeArr)
 
 const getTailArr = () => {
-    if (config.snakeArr[0] === snakeHead) {
-        const tailArr = config.snakeArr.slice(1);
+    if (fun.config.snakeArr[0] === snakeHead) {
+        const tailArr = fun.config.snakeArr.slice(1);
         return tailArr;
     }
 }
@@ -257,7 +205,7 @@ const getTailArr = () => {
 // Is about to eat itself?
 
 const isEatingItself = (x, y) => {
-    if (config.snakeArr.length > 3) {
+    if (fun.config.snakeArr.length > 3) {
         if (getTailArr().some(el => x === el.x && y === el.y)) {
             return true;
         }
@@ -281,10 +229,10 @@ const draw = () => {
     ctx.fillStyle = snakeHead.fillColor;
     ctx.fillRect(snakeHead.x, snakeHead.y, snakeHead.width, snakeHead.height);
     // snake tails
-    for (let i = 1; i < config.snakeArr.length; i++) {
-        ctx.strokeRect(config.snakeArr[i].x, config.snakeArr[i].y, config.snakeArr[i].width, config.snakeArr[i].height);
-        ctx.fillStyle = config.snakeArr[i].fillColor;
-        ctx.fillRect(config.snakeArr[i].x, config.snakeArr[i].y, config.snakeArr[i].width, config.snakeArr[i].height);
+    for (let i = 1; i < fun.config.snakeArr.length; i++) {
+        ctx.strokeRect(fun.config.snakeArr[i].x, fun.config.snakeArr[i].y, fun.config.snakeArr[i].width, fun.config.snakeArr[i].height);
+        ctx.fillStyle = fun.config.snakeArr[i].fillColor;
+        ctx.fillRect(fun.config.snakeArr[i].x, fun.config.snakeArr[i].y, fun.config.snakeArr[i].width, fun.config.snakeArr[i].height);
     }
     // food
     ctx.fillStyle = food.fillColor;
@@ -294,3 +242,73 @@ const draw = () => {
 }
 
 draw();
+
+/* (1) Texts Toggling */
+
+const startText = document.getElementById('start-text');
+const backwardsText = document.getElementById('backwards-text');
+const eatenItselfText = document.getElementById('eaten-itself-text');
+const crossedBorderText = document.getElementById('crossed-border-text');
+const victoryText = document.getElementById('victory-text');
+
+const showText = textEl => {
+    let textArr = [startText, backwardsText, eatenItselfText, crossedBorderText, victoryText];
+    textArr.forEach(el => el.classList.toggle('show', false));
+    textEl.classList.add('show');
+}
+
+const showBackwardsText = () => {
+    showText(backwardsText);
+    setTimeout(() => backwardsText.classList.remove('show'), 1000);
+}
+
+/* (2) Keyboard Controls */
+
+let intervalID;
+const intervalLoop = () => {
+    intervalID = setInterval(runMakeStep, fun.config.timing);
+}
+
+window.addEventListener('keydown', function (event) {
+    clearInterval(intervalID);
+    switch (event.key) {
+        case "ArrowLeft":
+            if (snakeHead.direction !== 'right') {
+                snakeHead.direction = 'left';
+            } else {
+                showBackwardsText();
+            }
+            break;
+        case "ArrowRight":
+            if (snakeHead.direction !== 'left') {
+                snakeHead.direction = 'right';
+            } else {
+                showBackwardsText();
+            }
+            break;
+        case "ArrowUp":
+            if (snakeHead.direction !== 'bot') {
+                snakeHead.direction = 'top';
+            } else {
+                showBackwardsText();
+            }
+            break;
+        case "ArrowDown":
+            if (snakeHead.direction !== 'top') {
+                snakeHead.direction = 'bot';
+            } else {
+                showBackwardsText();
+            }
+            break;
+        case " ": // only for test
+            intervalID ? clearInterval(intervalID) : intervalLoop();
+            break;
+    }
+
+    if (!snakeHead.hasDied()) {
+        fun.config.snakeArr.forEach(el => el.makeStep());
+        setDirection(fun.config.snakeArr);
+        snakeHead.eatAndGrow();
+        intervalLoop();
+    }
+});
